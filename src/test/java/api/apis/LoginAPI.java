@@ -1,6 +1,7 @@
 package api.apis;
 
 import static net.serenitybdd.rest.SerenityRest.then;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,16 +14,18 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.istack.NotNull;
 
 import api.models.LoginInfo;
-import io.restassured.response.Response;
+//import io.restassured.response.Response;
 
 public class LoginAPI {
 
 	private static final Logger LOG = LoggerFactory.getLogger(LoginAPI.class);
+	public static String token = null;
+	public static String CONTENT_TYPE = "application/json";
 
-	public Response postLoginCall(String userid, String pwd)
-			throws JsonParseException, JsonMappingException, IOException {
+	public void postLoginCall(String userid, String pwd) throws JsonParseException, JsonMappingException, IOException {
 
 		LOG.info("User Logins");
 
@@ -35,9 +38,10 @@ public class LoginAPI {
 		PostLogin.password = pwd;
 		PostLogin.userid = userid;
 
-		given().header("", "").body(mapper.writeValueAsString(PostLogin)).when().post("");
+		given().contentType(CONTENT_TYPE).header("accept", "*/*").body(mapper.writeValueAsString(PostLogin)).when()
+				.post("https://loan-user-management.cfapps.io/token");
 
-		return then().extract().response();
+		// return then().extract().response();
 
 	}
 
@@ -49,19 +53,27 @@ public class LoginAPI {
 
 			LOG.info("Logged in successfully");
 
-		}
+			if (then().extract().body().jsonPath().getString("role") == "ADMIN") {
 
-		else if (then().extract().statusCode() == 422) {
-
-			LOG.info("Log in failed");
+				LOG.info("Admin logged in successfully");
+			}
 
 		}
 
 		else {
 
-			LOG.info("Status code not recognized");
+			LOG.info("Login is not succussfull");
 
 		}
+
+	}
+
+	public void verifyToken() {
+
+		token = then().extract().body().jsonPath().getString("token");
+		equals(!token.contains(null));
+		
+		
 
 	}
 
