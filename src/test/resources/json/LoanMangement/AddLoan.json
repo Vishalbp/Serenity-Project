@@ -4,13 +4,13 @@
     "addreesLine2": "",
     "borrowerName": "",
     "city": "",
-    "zipcode": 
+    "zipcode": 0
   },
   "loanDetails": {
     "legalDocuments": "",
-    "loanAmount": ,
-    "loanId": ,
-    "loanTerm": ,
+    "loanAmount": 0,
+    "loanId": 0,
+    "loanTerm": 0,
     "loanType": ""
   }
 }

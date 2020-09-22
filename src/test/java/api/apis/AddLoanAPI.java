@@ -29,7 +29,7 @@ public class AddLoanAPI {
 
 		LOG.info("Add Loan");
 
-		String strJsonFile = "src/test/resources/json/Login/AddLoan.json";
+		String strJsonFile = "src/test/resources/json/LoanMangement/AddLoan.json";
 
 		ObjectMapper mapper = new ObjectMapper();
 
