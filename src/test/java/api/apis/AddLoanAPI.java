@@ -23,8 +23,7 @@ public class AddLoanAPI {
 
 	private static final Logger LOG = LoggerFactory.getLogger(AddLoanAPI.class);
 
-	public void postCreateLoan(String addressLine1, String addressLine2, String borrowerName, String city,
-			String zipcode, String legalDocuments, String loanType, String loanAmount, String loanTerm)
+	public void postCreateLoan(String legalDocuments, String loanType, String loanAmount, String loanTerm)
 			throws JsonParseException, JsonMappingException, IOException {
 
 		LOG.info("Add Loan");
@@ -35,16 +34,10 @@ public class AddLoanAPI {
 
 		AddLoanInfo postLoan = mapper.readValue(new File(strJsonFile), AddLoanInfo.class);
 
-		postLoan.borrowerDetails.addreesLine1 = addressLine1;
-		postLoan.borrowerDetails.addreesLine2 = addressLine2;
-		postLoan.borrowerDetails.borrowerName = borrowerName;
-		postLoan.borrowerDetails.city = city;
-		postLoan.borrowerDetails.zipcode = Integer.parseInt(zipcode);
-
-		postLoan.loanDetails.legalDocuments = legalDocuments;
-		postLoan.loanDetails.loanType = loanType;
-		postLoan.loanDetails.loanAmount = Integer.parseInt(loanAmount);
-		postLoan.loanDetails.loanTerm = Integer.parseInt(loanTerm);
+		postLoan.legalDocuments = legalDocuments;
+		postLoan.loanType = loanType;
+		postLoan.loanAmount = Integer.parseInt(loanAmount);
+		postLoan.loanTerm = Integer.parseInt(loanTerm);
 
 		given().contentType(CONTENT_TYPE).header("accept", "*/*").header("Authorization", "Discover " + token)
 				.body(mapper.writeValueAsString(postLoan)).when()

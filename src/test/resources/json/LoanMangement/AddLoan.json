@@ -1,16 +1,6 @@
 {
-  "borrowerDetails": {
-    "addreesLine1": "",
-    "addreesLine2": "",
-    "borrowerName": "",
-    "city": "",
-    "zipcode": 0
-  },
-  "loanDetails": {
-    "legalDocuments": "",
-    "loanAmount": 0,
-    "loanId": 0,
-    "loanTerm": 0,
-    "loanType": ""
-  }
+  "legalDocuments": "string",
+  "loanAmount": 0,
+  "loanTerm": 0,
+  "loanType": "string"
 }

@@ -25,7 +25,7 @@ public class LoginAPI {
 	public static String token = null;
 	public static String CONTENT_TYPE = "application/json";
 
-	public void postLoginCall(String userid, String pwd) throws JsonParseException, JsonMappingException, IOException {
+	public String postLoginCall(String userid, String pwd) throws JsonParseException, JsonMappingException, IOException {
 
 		LOG.info("User Logins");
 
@@ -36,13 +36,14 @@ public class LoginAPI {
 		LoginInfo PostLogin = mapper.readValue(new File(strJsonFile), LoginInfo.class);
 
 		PostLogin.password = pwd;
-		PostLogin.userid = userid;
+		PostLogin.username = userid;
 
 		given().contentType(CONTENT_TYPE).header("accept", "*/*").body(mapper.writeValueAsString(PostLogin)).when()
 				.post("https://loan-user-management.cfapps.io/token");
 
-		// return then().extract().response();
+		token = then().extract().body().jsonPath().getString("token");
 
+		return token;
 	}
 
 	public void verifyResponse(String statusCode) {
@@ -53,7 +54,7 @@ public class LoginAPI {
 
 			LOG.info("Logged in successfully");
 
-			if (then().extract().body().jsonPath().getString("role") == "ADMIN") {
+			if (then().extract().body().jsonPath().getString("role").equals("ADMIN")) {
 
 				LOG.info("Admin logged in successfully");
 			}
@@ -70,8 +71,12 @@ public class LoginAPI {
 
 	public void verifyToken() {
 
-		token = then().extract().body().jsonPath().getString("token");
-		equals(!token.contains(null));
+
+		if (equals(!token.contains(null))) {
+			
+			LOG.info("Token is generated successfully");
+			
+		}
 		
 		
 

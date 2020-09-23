@@ -17,11 +17,9 @@ public class AddLoanSteps {
 		addLoanAPI.verifyLoanResponse(statusCode);
 	}
 
-	@Then("^Admin adds new loan \"(.*?)\", \"(.*?)\", \"(.*?)\", \"(.*?)\", \"(.*?)\", \"(.*?)\", \"(.*?)\", \"(.*?)\" and \"(.*?)\"$")
-	public void verify_Admin_Adds_new_loan(String addressLine1, String addressLine2, String borrowerName, String city,
-			String zipcode, String legalDocuments, String loanType, String loanAmount, String loanTerm)
+	@Then("^Admin adds new loan \"(.*?)\", \"(.*?)\", \"(.*?)\" and \"(.*?)\"$")
+	public void verify_Admin_Adds_new_loan(String legalDocuments, String loanType, String loanAmount, String loanTerm)
 			throws Throwable {
-		addLoanAPI.postCreateLoan(addressLine1, addressLine2, borrowerName, city, zipcode, legalDocuments, loanType,
-				loanAmount, loanTerm);
+		addLoanAPI.postCreateLoan(legalDocuments, loanType, loanAmount, loanTerm);
 	}
 }
