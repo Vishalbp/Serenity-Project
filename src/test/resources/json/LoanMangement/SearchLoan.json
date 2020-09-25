@@ -1,0 +1,6 @@
+{
+  "borrowerFirstName": "string",
+  "borrowerLastName": "string",
+  "loanId": 0,
+  "loanAmount": 0
+}

@@ -1,0 +1,7 @@
+{
+  "legalDocuments": "string",
+  "loanAmount": 0,
+  "loanTerm": 0,
+  "loanType": "string",
+  "loan_id" : 0
+}

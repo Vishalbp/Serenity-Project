@@ -1,10 +1,7 @@
 package api.features.steps;
 
 import api.apis.AddLoanAPI;
-import api.apis.LoginAPI;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
 import net.thucydides.core.annotations.Steps;
 
 public class AddLoanSteps {
@@ -13,7 +10,7 @@ public class AddLoanSteps {
 	private AddLoanAPI addLoanAPI;
 
 	@Then("^Verify Admin is able to successfully create the loan \"(.*?)\"$")
-	public void verify_Admin_sucessfully_Create_Loan(String statusCode) throws Throwable {
+	public void verify_Admin_sucessfully_Create_Loan(int statusCode) throws Throwable {
 		addLoanAPI.verifyLoanResponse(statusCode);
 	}
 

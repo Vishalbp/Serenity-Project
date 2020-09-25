@@ -2,6 +2,7 @@ package api.apis;
 
 import static net.serenitybdd.rest.SerenityRest.then;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +15,6 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.istack.NotNull;
 
 import api.models.LoginInfo;
 //import io.restassured.response.Response;
@@ -25,7 +25,8 @@ public class LoginAPI {
 	public static String token = null;
 	public static String CONTENT_TYPE = "application/json";
 
-	public String postLoginCall(String userid, String pwd) throws JsonParseException, JsonMappingException, IOException {
+	public String postLoginCall(String userid, String pwd)
+			throws JsonParseException, JsonMappingException, IOException {
 
 		LOG.info("User Logins");
 
@@ -46,15 +47,19 @@ public class LoginAPI {
 		return token;
 	}
 
-	public void verifyResponse(String statusCode) {
+	public void verifyResponse(int statusCode) {
 
 		LOG.info(then().extract().response().asString());
+
+		assertEquals((then().extract().statusCode()), statusCode);
 
 		if (then().extract().statusCode() == 200) {
 
 			LOG.info("Logged in successfully");
 
 			if (then().extract().body().jsonPath().getString("role").equals("ADMIN")) {
+
+				assertEquals((then().extract().body().jsonPath().get("role")), "ADMIN");
 
 				LOG.info("Admin logged in successfully");
 			}
@@ -71,14 +76,9 @@ public class LoginAPI {
 
 	public void verifyToken() {
 
+		assertNotNull((then().extract().body().jsonPath().get("token")));
 
-		if (equals(!token.contains(null))) {
-			
-			LOG.info("Token is generated successfully");
-			
-		}
-		
-		
+		LOG.info("Token is generated successfully");
 
 	}
 

@@ -8,6 +8,6 @@ Feature: To test the Create Loan API features
     And Verify Admin is able to successfully create the loan "<code>"
 
     Examples: 
-      | userid | password | code | legalDocuments | loanType      | loanAmount | loanTerm |
-      | johnnyi  | Welcome |  200 | Payslip        | Personal Loan |     250000 | 24 |
+      | userid | password | code | legalDocuments | loanType | loanAmount | loanTerm |
+      | johnnyi  | Welcome |  200 | Payslip | Personal Loan | 250000 | 24 |
 

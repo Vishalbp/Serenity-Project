@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import api.models.AddLoanInfo;
 import static api.apis.LoginAPI.CONTENT_TYPE;
 import static api.apis.LoginAPI.token;
-//import io.restassured.response.Response;
+import static org.junit.Assert.*;
 
 public class AddLoanAPI {
 
@@ -47,7 +47,7 @@ public class AddLoanAPI {
 
 	}
 
-	public void verifyLoanResponse(String statusCode) {
+	public void verifyLoanResponse(int statusCode) {
 
 		LOG.info(then().extract().response().asString());
 
@@ -55,8 +55,9 @@ public class AddLoanAPI {
 
 			LOG.info("Loan is created successfully");
 
-			equals(!then().extract().body().jsonPath().getString("loanId").contains(null));
+			// equals(!then().extract().body().jsonPath().getString("loanId").contains(null));
 
+			assertNotNull(then().extract().body().jsonPath().get("loanId"));
 		}
 
 		else {

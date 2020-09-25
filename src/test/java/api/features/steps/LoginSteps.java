@@ -17,7 +17,7 @@ public class LoginSteps {
 	}
 
 	@When("^Verify the response code \"(.*?)\"$")
-	public void verify_the_response_code(String statusCode) throws Throwable {
+	public void verify_the_response_code(int statusCode) throws Throwable {
 		loginAPI.verifyResponse(statusCode);
 
 	}
